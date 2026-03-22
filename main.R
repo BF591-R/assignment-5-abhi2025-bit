@@ -225,14 +225,13 @@ plot_volcano <- function(labeled_results) {
 make_ranked_log2fc <- function(labeled_results, id2gene_path) {
   
   # Read mapping
-  id2gene <- read_tsv(id2gene_path, show_col_types = FALSE)
-  
+  id2gene <- read_tsv(id2gene_path, col_names = FALSE)
   colnames(id2gene) <- c("genes", "symbol")
   
   # Join
   merged <- labeled_results %>%
     dplyr::inner_join(id2gene, by = "genes") %>%
-    dplyr::select(symbol, log2FoldChange)
+   dplyr::select(symbol, log2FoldChange)
   
   # Remove duplicates
   merged <- merged %>%
